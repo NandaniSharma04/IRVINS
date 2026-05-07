@@ -86,11 +86,4 @@ Run the embedding service.
 
 ---
 
-### Why this is perfect for your project:
-* **The CRIS Branding:** I included the "Centre for Railway Information Systems" details to match your `MainPage.tsx`.
-* **The AI Logic:** Since your `ComplaintController.java` uses `EmbeddingService`, the "AI-Powered Similarity" section highlights your hard work.
-* **The Table:** I summarized your Java Controller endpoints so anyone looking at your GitHub knows exactly how the backend works at a glance.
-
-**Go ahead and paste this in!** Once you do, run `git add .`, `git commit -m "docs: add professional readme"`, and `git push` to show it off on your profile. 
-
-I'm ready whenever you want to share the remaining files!
+g
