@@ -85,5 +85,3 @@ Run the embedding service.
 
 
 ---
-
-g
