@@ -1,0 +1,642 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f5132 0%, #166534 50%, #15803d 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+
+.App {
+  max-width: 950px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+
+.complaint-form-container {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  animation: slideUp 0.6s ease-out;
+}
+
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.form-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  color: white;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.form-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10"><defs><pattern id="grain" width="100" height="10" patternUnits="userSpaceOnUse"><circle cx="25" cy="5" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="5" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="10" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+
+.form-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+
+.service-id {
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  padding: 12px 24px;
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.complaint-form {
+  padding: 50px;
+}
+
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+
+label {
+  font-weight: 600;
+  color: #064e3b;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+label::before {
+  content: '✦';
+  color: #10b981;
+  font-size: 1.2rem;
+}
+
+
+input, select, textarea {
+  padding: 18px 20px;
+  border: 2px solid #d1fae5;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: linear-gradient(145deg, #f8fefc, #f0fdf4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #10b981;
+  background: white;
+  box-shadow: 
+    0 0 0 4px rgba(16, 185, 129, 0.15),
+    0 8px 25px rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+
+textarea {
+  resize: vertical;
+  min-height: 140px;
+  font-family: inherit;
+}
+
+
+input.error, select.error, textarea.error {
+  border-color: #f87171;
+  background: linear-gradient(145deg, #fef2f2, #fee2e2);
+  box-shadow: 0 4px 12px rgba(248, 113, 113, 0.2);
+  animation: shake 0.5s ease-in-out;
+}
+
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+.error-text::before {
+  content: '⚠️';
+}
+
+
+/* ===== SIDEBAR (Similar Complaints) ===== */
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 800px;
+  height: 118vh;
+  background: white;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  padding: 24px;
+  overflow-y: auto;
+  animation: slideInRight 0.4s ease forwards;
+  border-left: 3px solid #10b981;
+}
+
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+
+.sidebar-header h3 {
+  font-size: 1.3rem;
+  color: #064e3b;
+}
+
+
+.sidebar-header button {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #dc2626;
+  transition: transform 0.2s;
+}
+
+
+.sidebar-header button:hover {
+  transform: scale(1.2);
+}
+
+
+/* Each complaint card */
+.sidebar div {
+  background: #f0fdf4;
+  border-left: 5px solid #10b981;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+
+.sidebar div:hover {
+  transform: translateX(5px);
+  background: #dcfce7;
+}
+
+
+.sidebar strong {
+  display: block;
+  color: #065f46;
+  margin-bottom: 5px;
+}
+
+
+.sidebar p {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+
+.sidebar span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+
+.similar-complaints {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 2px solid #a7f3d0;
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+}
+
+
+.similar-complaints h3 {
+  color: #065f46;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.similar-complaints h3::before {
+  content: '🔍';
+}
+
+
+.similar-complaints ul {
+  list-style: none;
+}
+
+
+.similar-complaints li {
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 12px;
+  color: #064e3b;
+  font-weight: 500;
+  position: relative;
+  padding-left: 32px;
+  transition: all 0.2s ease;
+  border-left: 4px solid #10b981;
+}
+
+
+.similar-complaints li:hover {
+  background: rgba(16, 185, 129, 0.2);
+  transform: translateX(4px);
+}
+
+
+.similar-complaints li::before {
+  content: '→';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #10b981;
+  font-weight: bold;
+}
+
+
+.form-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding-top: 30px;
+  border-top: 1px solid #d1fae5;
+  margin-top: 30px;
+}
+
+
+.btn-similar, .btn-save {
+  padding: 18px 32px;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: inherit;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+
+.btn-similar {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: white;
+}
+
+
+.btn-similar:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4b5563, #374151);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(75, 85, 99, 0.4);
+}
+
+
+.btn-save {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  color: white;
+  min-width: 200px;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+
+.btn-save:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 40px rgba(16, 185, 129, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+
+.btn-save:active:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+
+.btn-save:disabled, .btn-similar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+.btn-save:disabled::after, .btn-similar:disabled::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(1px);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .complaint-form {
+    padding: 30px 24px;
+  }
+  
+  .form-header {
+    padding: 30px 24px;
+  }
+  
+  .form-header h1 {
+    font-size: 2rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-save, .btn-similar {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .form-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .service-id {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+/* ===== SIMILAR COMPLAINTS TABLE ===== */
+.similar-complaints-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.similar-complaints-table th {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  text-align: left;
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.similar-complaints-table th:last-child {
+  border-right: none;
+}
+
+.similar-complaints-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid #e5f5e0;
+  border-right: 1px solid #f0fdf4;
+  vertical-align: top;
+}
+
+.similar-complaints-table td:last-child {
+  border-right: none;
+}
+
+.similar-complaints-table tr {
+  transition: all 0.2s ease;
+}
+
+.similar-complaints-table tr:hover {
+  background: linear-gradient(90deg, #f0fdf4, #e6f4ea);
+  transform: scale(1.01);
+}
+
+.similar-complaints-table tr:last-child td {
+  border-bottom: none;
+}
+/* Complaint Link */
+/* Complaint Link - Clean and Professional */
+/* ===== COMPLAINT LINK (Professional & Clean) ===== */
+.complaint-link {
+  background: none;
+  border: none;
+  color: #00332c; 
+  font-weight: 700;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 0; /* Sharp corners look more professional */
+  text-decoration: underline;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.complaint-link:hover {
+  background: #00332c;
+  color: #f2ebd9;
+  text-decoration: none;
+}
+
+/* ===== COMPLAINT MODAL (The Fix for your Screenshot) ===== */
+.complaint-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Darker overlay to make modal pop */
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.complaint-modal {
+  background: #f2ebd9; /* The cream color from your design idea */
+  border-radius: 0;    /* Remove round corners for professional look */
+  max-width: 550px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid #00332c; /* Single thin dark border */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: #00332c; /* Dark forest green header */
+  color: white;
+}
+
+.modal-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color:rgb(9, 27, 1);
+}
+
+.modal-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-content {
+  padding: 30px; /* Increased padding so it's not "crammed" */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between each information box */
+}
+
+/* This styles the boxes inside the modal (Complaint No, Sender, etc.) */
+.modal-content p {
+  margin: 0;
+  padding: 15px 20px;
+  background: white; /* Clean white background for the text */
+  border: 1px solid #d1d1d1; /* Very light border */
+  border-left: 5px solid #00332c; /* Dark accent on the left only */
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.modal-content strong {
+  display: block; /* Puts label on its own line */
+  color: #00332c;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}

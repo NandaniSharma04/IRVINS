@@ -1,0 +1,394 @@
+.tagging-container {
+  min-height: 100vh;
+  padding: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  overflow-y: auto;
+}
+
+/* DARK OVERLAY */
+.tagging-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(4px);
+}
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.tagging-card {
+  position: relative;
+  z-index: 2;
+
+  width: 1100px;
+  max-width: 95%;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px);
+
+  border-radius: 30px;
+
+  padding: 42px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
+
+  color: white;
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-btn {
+  position: absolute;
+
+  top: 24px;
+  right: 26px;
+
+  background: transparent !important;
+  border: none !important;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 30px;
+  font-weight: 300;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  color: white;
+
+  transform: scale(1.1);
+
+  background: transparent !important;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.tagging-card h1 {
+  font-size: 42px;
+  font-weight: 800;
+
+  margin-bottom: 32px;
+
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.tagging-card input {
+  width: 100%;
+
+  padding: 18px;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 15px;
+
+  margin-bottom: 22px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+.tagging-card input:focus {
+  border-color: rgba(16, 185, 129, 0.8);
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.tagging-card input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+.search-btn {
+  width: 220px;
+
+  padding: 15px 20px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #10b981, #047857);
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+
+  box-shadow: 0 6px 22px rgba(16, 185, 129, 0.35);
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 28px rgba(16, 185, 129, 0.45);
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+
+.result-box {
+  margin-top: 36px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border-radius: 24px;
+
+  padding: 28px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.complaint-info {
+  margin-bottom: 30px;
+}
+
+.complaint-info p {
+  margin-bottom: 12px;
+
+  font-size: 16px;
+
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+
+  margin-bottom: 18px;
+
+  color: white;
+}
+
+.similar-title {
+  margin-top: 42px;
+}
+
+/* =========================
+   TAG TABLE
+========================= */
+
+.tags-table {
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  margin-bottom: 20px;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+
+  grid-template-columns: 1.2fr 1fr 1fr;
+
+  padding: 18px;
+
+  align-items: center;
+
+  font-size: 14px;
+}
+
+.table-header {
+  background: rgba(255, 255, 255, 0.12);
+
+  font-weight: 700;
+}
+
+.table-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  transition: 0.2s ease;
+}
+
+.table-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   SIMILARITY TABLE
+========================= */
+
+.similarity-table {
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  margin-top: 18px;
+}
+
+.similarity-header,
+.similarity-row {
+  display: grid;
+
+  grid-template-columns: 1.5fr 3fr 1fr;
+
+  gap: 20px;
+
+  padding: 18px;
+
+  align-items: center;
+}
+
+.similarity-header {
+  background: rgba(255,255,255,0.12);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: white;
+}
+
+.similarity-row {
+  border-top: 1px solid rgba(255,255,255,0.06);
+
+  transition: 0.2s ease;
+}
+
+.similarity-row:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.complaint-id {
+  color: #93c5fd;
+
+  font-weight: 600;
+
+  word-break: break-word;
+}
+
+.subject-cell {
+  color: rgba(255,255,255,0.85);
+
+  line-height: 1.5;
+
+  word-break: break-word;
+}
+
+.match-badge {
+  width: fit-content;
+
+  padding: 7px 14px;
+
+  border-radius: 999px;
+
+  background: rgba(16,185,129,0.2);
+
+  color: #6ee7b7;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.no-data,
+.empty-similarity {
+  padding: 24px;
+
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 14px;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+  color: #f87171;
+
+  margin-top: 18px;
+
+  font-size: 14px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .tagging-container {
+    padding: 20px;
+  }
+
+  .tagging-card {
+    padding: 24px;
+  }
+
+  .tagging-card h1 {
+    font-size: 30px;
+  }
+
+  .table-header,
+  .table-row,
+  .similarity-header,
+  .similarity-row {
+    font-size: 12px;
+
+    padding: 12px;
+
+    gap: 10px;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+}
