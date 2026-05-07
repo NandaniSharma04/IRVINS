@@ -66,6 +66,20 @@ Bash
 pip install -r requirements.txt
 Run the embedding service.
 
+## 📸 Project Gallery
+
+### Main Portal
+![Main Page](./screenshots/mainPage.png)
+
+### AI Complaint Form & Similarity Sidebar
+![Complaint Form](./screenshots/IRVINSformPage.png)
+![Complaint Form](./screenshots/ComplaintSimilarity.png)
+
+### Old Tagging Complaints
+![Complaint Form](./screenshots/OldComplaintTaggingPage.png)
+![Complaint Form](./screenshots/SimilarTaggedComplaint.png)
+![Complaint Form](./screenshots/TaggedComplaint.png)
+
 ### ⚖️ License
 © 2026 Centre for Railway Information Systems (CRIS). Ministry of Railways, Government of India.
 
