@@ -1,0 +1,322 @@
+/* ==================== DASHBOARD CONTAINER ==================== */
+
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
+  color: #e0e0e0;
+  padding-top: 80px;
+}
+
+.dashboard-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* ==================== DASHBOARD HEADER ==================== */
+
+.dashboard-header {
+  margin-bottom: 50px;
+  animation: slideInDown 0.6s ease-out;
+}
+
+.dashboard-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.dashboard-subtitle {
+  font-size: 1.1rem;
+  color: #a0a0b0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* ==================== STAT CARDS GRID ==================== */
+
+.stat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+}
+
+.stat-card:hover::before {
+  left: 100%;
+}
+
+.stat-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.stat-card-label {
+  font-size: 0.95rem;
+  color: #b0b0c0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.stat-card-value {
+  font-size: 2.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==================== CHART SECTION ==================== */
+
+.chart-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-bottom: 50px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.chart-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 32px;
+  transition: all 0.4s ease;
+}
+
+.chart-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 212, 255, 0.15);
+}
+
+.chart-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #e0e0e0;
+  letter-spacing: -0.5px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* ==================== CATEGORY BREAKDOWN ==================== */
+
+.category-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 50px;
+}
+
+.breakdown-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 32px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.breakdown-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-4px);
+}
+
+.breakdown-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.breakdown-title-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-item:hover {
+  padding-left: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding-right: 8px;
+}
+
+.category-item-name {
+  font-weight: 600;
+  color: #d0d0e0;
+  font-size: 1rem;
+  flex: 1;
+}
+
+.category-item-count {
+  background: rgba(0, 212, 255, 0.2);
+  color: #00d4ff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 12px;
+}
+
+.category-item-percentage {
+  color: #a0a0b0;
+  font-weight: 600;
+  min-width: 60px;
+  text-align: right;
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+  .chart-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-breakdown {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-wrapper {
+    padding: 24px 16px;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+  }
+  
+  .stat-card {
+    padding: 20px;
+  }
+  
+  .chart-card {
+    padding: 20px;
+  }
+  
+  .breakdown-card {
+    padding: 20px;
+  }
+}

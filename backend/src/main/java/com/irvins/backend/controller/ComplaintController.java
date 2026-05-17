@@ -7,8 +7,11 @@ import com.irvins.backend.service.EmbeddingService;
 import com.irvins.backend.dto.SimilarComplaintDTO;
 import com.irvins.backend.dto.TagRequest;
 import com.irvins.backend.dto.ComplaintTagResponse;
+import com.irvins.backend.dto.CategoryStatsDTO;
 import com.irvins.backend.entity.AIComplaint;
 import com.irvins.backend.repository.AIComplaintRepository;
+import com.irvins.backend.service.DashboardService;
+import com.irvins.backend.service.CategoryDetectionService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +37,12 @@ public class ComplaintController {
 
     @Autowired
     private ComplaintTagService service;
+
+    @Autowired
+    private DashboardService dashboardService;
+
+    @Autowired
+    private CategoryDetectionService categoryDetectionService;
 
     // =====================================================
     // GET TAG DETAILS
@@ -71,7 +80,6 @@ public class ComplaintController {
     }
 
     // =====================================================
-    // NEW ENDPOINT:
     // GET SIMILAR COMPLAINTS FROM EXISTING COMPLAINT
     // =====================================================
 
@@ -169,6 +177,31 @@ public class ComplaintController {
     }
 
     // =====================================================
+    // DASHBOARD STATS
+    // =====================================================
+
+    @GetMapping("/dashboard/stats")
+    public ResponseEntity<?> getDashboardStats() {
+
+        try {
+
+            CategoryStatsDTO stats =
+                    dashboardService.getCategoryStats();
+
+            return ResponseEntity.ok(stats);
+
+        } catch (Exception ex) {
+
+            return ResponseEntity
+                    .status(500)
+                    .body(
+                            "Error fetching dashboard stats: "
+                                    + ex.getMessage()
+                    );
+        }
+    }
+
+    // =====================================================
     // SAVE COMPLAINT
     // =====================================================
 
@@ -178,6 +211,7 @@ public class ComplaintController {
     ) {
 
         if (complaint == null) {
+
             return ResponseEntity
                     .badRequest()
                     .body("Invalid complaint data");
@@ -191,10 +225,44 @@ public class ComplaintController {
             );
         }
 
-        // save complaint
+        // =================================================
+        // AUTO CATEGORIZE COMPLAINT
+        // =================================================
+
+        CategoryDetectionService.CategoryDetectionResult
+                categoryResult =
+
+                categoryDetectionService.detectCategory(
+
+                        complaint.getSubject(),
+
+                        complaint.getDetails()
+                );
+
+        complaint.setMainCategory(
+                categoryResult.mainCategory
+        );
+
+        complaint.setSubcategory(
+                categoryResult.subcategory
+        );
+
+        complaint.setCategoryConfidence(
+                categoryResult.confidence
+        );
+
+        complaint.setAutoCategorized(true);
+
+        // =================================================
+        // SAVE MAIN COMPLAINT
+        // =================================================
+
         masterRepository.save(complaint);
 
-        // generate embedding
+        // =================================================
+        // GENERATE EMBEDDING
+        // =================================================
+
         String combinedText =
                 complaint.getSubject()
                         + " "
@@ -205,7 +273,10 @@ public class ComplaintController {
                         combinedText
                 );
 
-        // save AI complaint
+        // =================================================
+        // SAVE AI COMPLAINT
+        // =================================================
+
         AIComplaint aiComplaint =
                 new AIComplaint();
 

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-
 @Entity
 @Table(name = "Master")
 @Data
@@ -34,4 +33,17 @@ public class Master {
     private String serviceId;
     
     private LocalDateTime createdAt = LocalDateTime.now();
+    
+    // 👇 NEW FIELDS FOR CATEGORIZATION
+    @Column(name = "main_category")
+    private String mainCategory;  // e.g., "Staff Misconduct"
+    
+    @Column(name = "subcategory")
+    private String subcategory;    // e.g., "Abuse"
+    
+    @Column(name = "category_confidence")
+    private Double categoryConfidence;  // e.g., 0.87 (87% confidence)
+    
+    @Column(name = "auto_categorized")
+    private Boolean autoCategorized = true;  // Flag if auto-detected or manual
 }

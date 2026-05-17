@@ -213,6 +213,24 @@ const MainPage: React.FC = () => {
             Tag Complaints
           </button>
 
+          <button
+  onClick={() => navigate("/dashboard")}
+  className="
+    px-8 py-4
+    bg-purple-600
+    hover:bg-purple-700
+    rounded-xl
+    text-lg
+    font-semibold
+    transition
+    duration-300
+    shadow-lg
+    hover:shadow-purple-500/30
+  "
+>
+  📊 View Dashboard
+</button>
+
         </div>
 
       </section>
